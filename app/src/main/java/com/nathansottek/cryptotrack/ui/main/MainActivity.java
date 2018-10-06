@@ -44,9 +44,10 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onStart() {
     super.onStart();
-    addSubscription(viewModel.getBcc()
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(this::updateBcc));
+    // TODO: BCCUSD currently unavailable from API
+//    addSubscription(viewModel.getBcc()
+//        .observeOn(AndroidSchedulers.mainThread())
+//        .subscribe(this::updateBcc));
     addSubscription(viewModel.getBtc()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(this::updateBtc));

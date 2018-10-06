@@ -4,7 +4,7 @@ package com.nathansottek.cryptotrack.ui.main;
 import androidx.lifecycle.ViewModel;
 import com.nathansottek.cryptotrack.data.CurrencyData;
 import com.nathansottek.cryptotrack.data.main.MainRepository;
-import io.reactivex.Observable;
+import io.reactivex.Single;
 
 import javax.inject.Inject;
 
@@ -17,25 +17,28 @@ class MainViewModel extends ViewModel {
    this.mainRepository = mainRepository;
   }
 
-  public Observable<CurrencyData> getBcc() {
+  public Single<CurrencyData> getBcc() {
     return mainRepository.getBccData();
   }
 
-  public Observable<CurrencyData> getBtc() {
+  public Single<CurrencyData> getBtc() {
     return mainRepository.getBtcData();
   }
 
-  public Observable<CurrencyData> getEth() {
+  public Single<CurrencyData> getEth() {
     return mainRepository.getEthData();
   }
 
-  public Observable<CurrencyData> getLtc() {
+  public Single<CurrencyData> getLtc() {
     return mainRepository.getLtcData();
   }
 
-  public Observable<CurrencyData> getNeo() {
+  public Single<CurrencyData> getNeo() {
     return mainRepository.getNeoData();
   }
 
-
+  @Override
+  protected void onCleared() {
+    super.onCleared();
+  }
 }
