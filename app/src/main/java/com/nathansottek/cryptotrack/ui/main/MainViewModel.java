@@ -2,40 +2,40 @@ package com.nathansottek.cryptotrack.ui.main;
 
 
 import androidx.lifecycle.ViewModel;
+import com.nathansottek.cryptotrack.data.CurrencyData;
+import com.nathansottek.cryptotrack.data.main.MainRepository;
 import io.reactivex.Observable;
-import io.reactivex.subjects.PublishSubject;
+
+import javax.inject.Inject;
 
 class MainViewModel extends ViewModel {
 
-    private PublishSubject<String> bccSubject = PublishSubject.create();
-    private PublishSubject<String> btcSubject = PublishSubject.create();
-    private PublishSubject<String> ethSubject = PublishSubject.create();
-    private PublishSubject<String> ltcSubject = PublishSubject.create();
-    private PublishSubject<String> neoSubject = PublishSubject.create();
+  private MainRepository mainRepository;
 
-    public MainViewModel() {
-        // Empty for future Dagger injections
-    }
+  @Inject
+  public MainViewModel(MainRepository mainRepository) {
+   this.mainRepository = mainRepository;
+  }
 
-    public Observable<String> getBcc() {
-        return bccSubject.startWith("bcc");
-    }
+  public Observable<CurrencyData> getBcc() {
+    return mainRepository.getBccData();
+  }
 
-    public Observable<String> getBtc() {
-        return btcSubject.startWith("btc");
-    }
+  public Observable<CurrencyData> getBtc() {
+    return mainRepository.getBtcData();
+  }
 
-    public Observable<String> getEth() {
-        return ethSubject.startWith("eth");
-    }
+  public Observable<CurrencyData> getEth() {
+    return mainRepository.getEthData();
+  }
 
-    public Observable<String> getLtc() {
-        return ltcSubject.startWith("ltc");
-    }
+  public Observable<CurrencyData> getLtc() {
+    return mainRepository.getLtcData();
+  }
 
-    public Observable<String> getNeo() {
-        return neoSubject.startWith("neo");
-    }
+  public Observable<CurrencyData> getNeo() {
+    return mainRepository.getNeoData();
+  }
 
 
 }
