@@ -3,6 +3,7 @@ package com.nathansottek.cryptotrack;
 import android.content.Intent;
 import android.support.annotation.CallSuper;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.app.AppCompatActivity;
 import com.nathansottek.cryptotrack.module.ApplicationComponentHolder;
 import com.nathansottek.cryptotrack.module.DaggerTestComponent;
@@ -10,7 +11,9 @@ import com.nathansottek.cryptotrack.module.TestComponent;
 import com.nathansottek.cryptotrack.module.TestModule;
 import org.junit.Before;
 import org.junit.Rule;
+import org.junit.runner.RunWith;
 
+@RunWith(AndroidJUnit4.class)
 public abstract class BaseActivityTest<T extends AppCompatActivity> {
 
   @Rule
