@@ -1,10 +1,10 @@
 package com.nathansottek.cryptotrack.ui.main;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.nathansottek.cryptotrack.R;
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     ButterKnife.bind(this);
   }
 
+  // TODO: Error handling
   @Override
   protected void onStart() {
     super.onStart();

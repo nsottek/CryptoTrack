@@ -1,20 +1,20 @@
 package com.nathansottek.cryptotrack.ui.main;
 
 
-import androidx.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModel;
 import com.nathansottek.cryptotrack.data.CurrencyData;
 import com.nathansottek.cryptotrack.data.main.MainRepository;
 import io.reactivex.Single;
 
 import javax.inject.Inject;
 
-class MainViewModel extends ViewModel {
+public class MainViewModel extends ViewModel {
 
   private MainRepository mainRepository;
 
   @Inject
   public MainViewModel(MainRepository mainRepository) {
-   this.mainRepository = mainRepository;
+    this.mainRepository = mainRepository;
   }
 
   public Single<CurrencyData> getBcc() {
@@ -35,10 +35,5 @@ class MainViewModel extends ViewModel {
 
   public Single<CurrencyData> getNeo() {
     return mainRepository.getNeoData();
-  }
-
-  @Override
-  protected void onCleared() {
-    super.onCleared();
   }
 }
