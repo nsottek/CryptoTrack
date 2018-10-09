@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Crypto Track</string>
+  <string name="generic_network_error">Network error occured</string>
 </resources>

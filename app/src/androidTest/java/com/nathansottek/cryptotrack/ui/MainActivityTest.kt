@@ -7,7 +7,7 @@ import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import com.nathansottek.cryptotrack.BaseActivityTest
 import com.nathansottek.cryptotrack.R
-import com.nathansottek.cryptotrack.data.CurrencyData
+import com.nathansottek.cryptotrack.data.main.CurrencyData
 import com.nathansottek.cryptotrack.factory.DataFactory
 import com.nathansottek.cryptotrack.ui.base.GenericViewModelFactory
 import com.nathansottek.cryptotrack.ui.main.MainActivity

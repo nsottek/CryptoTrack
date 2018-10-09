@@ -1,4 +1,6 @@
-package com.nathansottek.cryptotrack.data;
+package com.nathansottek.cryptotrack.data.main;
+
+import com.nathansottek.cryptotrack.data.NetworkResult;
 
 public class CurrencyData {
 
@@ -19,6 +21,7 @@ public class CurrencyData {
   public final String high;
   public final String volume;
   public final String timestamp;
+  public final NetworkResult networkResult;
 
   public CurrencyData(Type currencyType, String mid, String bid, String ask, String lastPrice,
       String low, String high, String volume, String timestamp) {
@@ -31,5 +34,16 @@ public class CurrencyData {
     this.high = high;
     this.volume = volume;
     this.timestamp = timestamp;
+    this.networkResult = NetworkResult.SUCCESS;
+  }
+
+  public CurrencyData(NetworkResult networkResult) {
+    if (networkResult == NetworkResult.SUCCESS) {
+      throw new UnsupportedOperationException("Any success indication should also have data populated");
+    }
+
+    this.networkResult = networkResult;
+    this.currencyType = null;
+    mid = bid = ask = lastPrice = low = high = volume = timestamp = "";
   }
 }

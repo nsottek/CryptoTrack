@@ -1,6 +1,6 @@
 package com.nathansottek.cryptotrack.factory
 
-import com.nathansottek.cryptotrack.data.CurrencyData
+import com.nathansottek.cryptotrack.data.main.CurrencyData
 
 object DataFactory {
 

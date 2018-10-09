@@ -13,7 +13,7 @@ public class CurrencyResponse {
   @Json(name = "volume") final String volume;
   @Json(name = "timestamp") final String timestamp;
 
-  CurrencyResponse(String mid, String bid, String ask, String lastPrice, String low,
+  public CurrencyResponse(String mid, String bid, String ask, String lastPrice, String low,
       String high, String volume, String timestamp) {
     this.mid = mid;
     this.bid = bid;

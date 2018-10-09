@@ -1,6 +1,5 @@
 package com.nathansottek.cryptotrack.data.main;
 
-import com.nathansottek.cryptotrack.data.CurrencyData;
 import com.nathansottek.cryptotrack.network.main.CurrencyClient;
 import io.reactivex.Single;
 

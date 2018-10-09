@@ -3,12 +3,14 @@ package com.nathansottek.cryptotrack.ui.main;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.nathansottek.cryptotrack.R;
-import com.nathansottek.cryptotrack.data.CurrencyData;
+import com.nathansottek.cryptotrack.data.NetworkResult;
+import com.nathansottek.cryptotrack.data.main.CurrencyData;
 import com.nathansottek.cryptotrack.module.ApplicationComponentHolder;
 import com.nathansottek.cryptotrack.ui.base.GenericViewModelFactory;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -41,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     ButterKnife.bind(this);
   }
 
-  // TODO: Error handling
   @Override
   protected void onStart() {
     super.onStart();
@@ -84,7 +85,11 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void updateView(TextView view, CurrencyData data) {
-    view.setText(String.format(currencyFormat, data.currencyType, data.ask));
+    if (data.networkResult != NetworkResult.SUCCESS) {
+      Snackbar.make(findViewById(android.R.id.content), R.string.generic_network_error, Snackbar.LENGTH_SHORT);
+    } else {
+      view.setText(String.format(currencyFormat, data.currencyType, data.ask));
+    }
   }
 
   private void addSubscription(Disposable disposable) {

@@ -2,7 +2,7 @@ package com.nathansottek.cryptotrack.ui.main;
 
 
 import android.arch.lifecycle.ViewModel;
-import com.nathansottek.cryptotrack.data.CurrencyData;
+import com.nathansottek.cryptotrack.data.main.CurrencyData;
 import com.nathansottek.cryptotrack.data.main.MainRepository;
 import io.reactivex.Single;
 
