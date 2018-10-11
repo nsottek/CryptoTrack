@@ -19,7 +19,7 @@ class MainViewModelTest {
 
   @Test fun getBcc() {
     val expected = DataFactory.currencyData()
-    whenever(mainRepository.bccData).thenReturn(Single.just(expected))
+    whenever(mainRepository.xrpData).thenReturn(Single.just(expected))
 
     val testObserver = viewModel.bcc.test()
 

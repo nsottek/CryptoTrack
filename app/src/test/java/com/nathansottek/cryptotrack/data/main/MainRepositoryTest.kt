@@ -25,7 +25,7 @@ class MainRepositoryTest {
   }
 
   @Test fun getBccData() {
-    val testObserver = repository.bccData.test()
+    val testObserver = repository.xrpData.test()
 
     testObserver.assertValue {
       assertEquals(CurrencyData.Type.BCC, it.currencyType)

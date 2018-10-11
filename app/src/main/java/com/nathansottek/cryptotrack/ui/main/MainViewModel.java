@@ -7,6 +7,8 @@ import com.nathansottek.cryptotrack.data.main.MainRepository;
 import io.reactivex.Single;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainViewModel extends ViewModel {
 
@@ -17,23 +19,30 @@ public class MainViewModel extends ViewModel {
     this.mainRepository = mainRepository;
   }
 
-  public Single<CurrencyData> getBcc() {
-    return mainRepository.getBccData();
+  public Single<List<String>> getSymbols() {
+    ArrayList<String> symbols = new ArrayList<>();
+    symbols.add(CurrencyData.Type.BTC.symbol);
+    symbols.add(CurrencyData.Type.ETH.symbol);
+    symbols.add(CurrencyData.Type.LTC.symbol);
+    symbols.add(CurrencyData.Type.NEO.symbol);
+    symbols.add(CurrencyData.Type.XRP.symbol);
+    return Single.just(symbols);
   }
 
-  public Single<CurrencyData> getBtc() {
-    return mainRepository.getBtcData();
-  }
-
-  public Single<CurrencyData> getEth() {
-    return mainRepository.getEthData();
-  }
-
-  public Single<CurrencyData> getLtc() {
-    return mainRepository.getLtcData();
-  }
-
-  public Single<CurrencyData> getNeo() {
-    return mainRepository.getNeoData();
+  public Single<CurrencyData> getData(int position) {
+    switch (position) {
+      case 0:
+        return mainRepository.getBtcData();
+      case 1:
+        return mainRepository.getEthData();
+      case 2:
+        return mainRepository.getLtcData();
+      case 3:
+        return mainRepository.getNeoData();
+      case 4:
+        return mainRepository.getXrpData();
+      default:
+        throw new IllegalArgumentException("Illegal position requested");
+    }
   }
 }

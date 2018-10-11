@@ -14,8 +14,6 @@ public class CurrencyNetworkMapper {
 
   public String toRequestString(CurrencyData.Type currencyType) {
     switch (currencyType) {
-      case BCC:
-        return NetworkConstants.BCC_REQUEST_SYMBOL;
       case BTC:
         return NetworkConstants.BTC_REQUEST_SYMBOL;
       case ETH:
@@ -24,6 +22,8 @@ public class CurrencyNetworkMapper {
         return NetworkConstants.LTC_REQUEST_SYMBOL;
       case NEO:
         return NetworkConstants.NEO_REQUEST_SYMBOL;
+      case XRP:
+        return NetworkConstants.XRP_REQUEST_SYMBOL;
       default:
         throw new IllegalArgumentException("Unknown currency type requested");
     }

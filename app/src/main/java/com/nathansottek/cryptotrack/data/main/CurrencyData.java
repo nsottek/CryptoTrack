@@ -5,11 +5,17 @@ import com.nathansottek.cryptotrack.data.NetworkResult;
 public class CurrencyData {
 
   public enum Type {
-    BCC,
-    BTC,
-    ETH,
-    LTC,
-    NEO
+    BTC("BTCUSD"),
+    ETH("ETHUSD"),
+    LTC("LTCUSD"),
+    NEO("NEOUSD"),
+    XRP("XRPUSD");
+
+    public final String symbol;
+
+    Type(String symbol) {
+      this.symbol = symbol;
+    }
   }
 
   public final Type currencyType;

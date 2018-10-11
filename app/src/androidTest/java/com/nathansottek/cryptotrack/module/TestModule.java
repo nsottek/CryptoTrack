@@ -4,10 +4,5 @@ import dagger.Module;
 
 @Module
 public class TestModule {
-
-//  @Provides
-//  @Singleton
-//  NetworkApi providesNetworkApi() {
-//    return mock(NetworkApi.class);
-//  }
+  // For classes needed by more than one view model
 }

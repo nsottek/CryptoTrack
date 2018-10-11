@@ -12,7 +12,7 @@ class CurrencyNetworkMapperTest {
   private val networkMapper: CurrencyNetworkMapper = CurrencyNetworkMapper()
 
   @Test fun toRequestString_BCC() {
-    assertCorrectRequestMapping(CurrencyData.Type.BCC, NetworkConstants.BCC_REQUEST_SYMBOL)
+    assertCorrectRequestMapping(CurrencyData.Type.BCC, NetworkConstants.XRP_REQUEST_SYMBOL)
   }
 
   @Test fun toRequestString_BTC() {

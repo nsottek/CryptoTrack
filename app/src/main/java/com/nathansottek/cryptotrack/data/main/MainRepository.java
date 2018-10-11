@@ -14,10 +14,6 @@ public class MainRepository {
     this.currencyClient = currencyClient;
   }
 
-  public Single<CurrencyData> getBccData() {
-    return currencyClient.getCurrencyData(CurrencyData.Type.BCC);
-  }
-
   public Single<CurrencyData> getBtcData() {
     return currencyClient.getCurrencyData(CurrencyData.Type.BTC);
   }
@@ -32,5 +28,9 @@ public class MainRepository {
 
   public Single<CurrencyData> getNeoData() {
     return currencyClient.getCurrencyData(CurrencyData.Type.NEO);
+  }
+
+  public Single<CurrencyData> getXrpData() {
+    return currencyClient.getCurrencyData(CurrencyData.Type.XRP);
   }
 }
