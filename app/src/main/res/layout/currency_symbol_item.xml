@@ -8,7 +8,7 @@
 
   <View
     android:id="@+id/right_border"
-    android:layout_width="1dp"
+    android:layout_width="@dimen/currency_symbol_border_width"
     android:layout_height="0dp"
     android:background="@color/colorPrimaryDark"
     app:layout_constraintStart_toEndOf="@+id/symbol_value"
@@ -19,12 +19,12 @@
     android:id="@+id/symbol_value"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textSize="24sp"
+    android:textSize="@dimen/currency_symbol_value_text_size"
     android:textStyle="bold"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:paddingStart="30dp"
-    android:paddingEnd="30dp"
+    android:paddingTop="@dimen/currency_symbol_value_vertical_padding"
+    android:paddingBottom="@dimen/currency_symbol_value_vertical_padding"
+    android:paddingStart="@dimen/currency_symbol_value_horizontal_padding"
+    android:paddingEnd="@dimen/currency_symbol_value_horizontal_padding"
     tools:text="BTCUSD"/>
 
 </android.support.constraint.ConstraintLayout>

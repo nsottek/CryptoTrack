@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!--Main Activity-->
+  <dimen name="main_activity_mid_label_text_size">14sp</dimen>
+  <dimen name="main_activity_mid_label_margin_top">5dp</dimen>
+  <dimen name="main_activity_mid_value_text_size">38sp</dimen>
+  <dimen name="main_activity_mid_value_vertical_bias" format="float">0.1</dimen>
+  <dimen name="main_activity_updated_at_text_size">14sp</dimen>
+  <dimen name="main_activity_updated_at_margin_top">5dp</dimen>
+  <dimen name="main_activity_guide_center_section_top_percent" format="float">0.3</dimen>
+  <dimen name="main_activity_low_high_indicator_margin_bottom">5dp</dimen>
+  <dimen name="main_activity_center_section_border_height">2dp</dimen>
+  <dimen name="main_activity_center_section_top_border_margin_vertical">10dp</dimen>
+  <dimen name="main_activity_indicator_text_size">40sp</dimen>
+  <dimen name="main_activity_indicator_margin_horizontal">15dp</dimen>
+  <dimen name="main_activity_low_high_value_text_size">24sp</dimen>
+  <dimen name="main_activity_standalone_value_text_size">28sp</dimen>
+  <dimen name="main_activity_standalone_value_margin">10dp</dimen>
+  <dimen name="main_activity_volume_vertical_bias" format="float">0.1</dimen>
+  <dimen name="main_activity_ask_vertical_bias" format="float">0.4</dimen>
+  <dimen name="main_activity_bid_vertical_bias" format="float">0.7</dimen>
+  <dimen name="main_activity_recyclerview_margin">10dp</dimen>
+
+  <!--Currency Symbol-->
+  <dimen name="currency_symbol_border_width">1dp</dimen>
+  <dimen name="currency_symbol_value_text_size">24sp</dimen>
+  <dimen name="currency_symbol_value_vertical_padding">10dp</dimen>
+  <dimen name="currency_symbol_value_horizontal_padding">30sp</dimen>
+</resources>

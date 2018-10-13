@@ -7,4 +7,7 @@
   <string name="volume">Volume: %s</string>
   <string name="ask">Ask: $%s</string>
   <string name="bid">Bid: $%s</string>
+  <string name="mid_label">MID</string>
+  <string name="low_indicator">L</string>
+  <string name="high_indicator">H</string>
 </resources>

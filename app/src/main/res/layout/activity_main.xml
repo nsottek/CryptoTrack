@@ -13,9 +13,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textColor="@color/white"
-    android:textSize="14sp"
-    android:text="MID"
-    android:layout_marginTop="5dp"
+    android:textSize="@dimen/main_activity_mid_label_text_size"
+    android:text="@string/mid_label"
+    android:layout_marginTop="@dimen/main_activity_mid_label_margin_top"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintBottom_toTopOf="@+id/mid_value"/>
@@ -25,22 +25,22 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textColor="@color/white"
-    android:textSize="38sp"
+    android:textSize="@dimen/main_activity_mid_value_text_size"
     tools:text="$6591.50"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintVertical_bias="0.1"/>
+    app:layout_constraintVertical_bias="@dimen/main_activity_mid_value_vertical_bias"/>
 
   <TextView
     android:id="@+id/updated_at"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textColor="@color/white"
-    android:textSize="14sp"
+    android:textSize="@dimen/main_activity_updated_at_text_size"
     tools:text="Updated at 6:48pm"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="@dimen/main_activity_updated_at_margin_top"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/mid_value"/>
@@ -50,7 +50,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.3"/>
+    app:layout_constraintGuide_percent="@dimen/main_activity_guide_center_section_top_percent"/>
 
   <View
     android:id="@+id/center_section_background"
@@ -67,7 +67,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:src="@drawable/ic_down_arrow"
-    android:layout_marginBottom="5dp"
+    android:layout_marginBottom="@dimen/main_activity_low_high_indicator_margin_bottom"
     app:layout_constraintBottom_toTopOf="@+id/center_section_top_border"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"/>
@@ -75,28 +75,28 @@
   <View
     android:id="@+id/center_section_top_border"
     android:layout_width="match_parent"
-    android:layout_height="2dp"
+    android:layout_height="@dimen/main_activity_center_section_border_height"
     android:background="@color/white"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="@dimen/main_activity_center_section_top_border_margin_vertical"
     app:layout_constraintTop_toBottomOf="@+id/guide_center_section_top"
   />
 
   <View
     android:id="@+id/center_section_bottom_border"
     android:layout_width="match_parent"
-    android:layout_height="2dp"
+    android:layout_height="@dimen/main_activity_center_section_border_height"
     android:background="@color/colorPrimaryDark"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="@dimen/main_activity_center_section_top_border_margin_vertical"
     app:layout_constraintTop_toBottomOf="@+id/low_value"/>
 
   <TextView
     android:id="@+id/low_indicator"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:textSize="40sp"
+    android:textSize="@dimen/main_activity_indicator_text_size"
     android:gravity="center"
-    android:layout_marginStart="15dp"
-    android:text="L"
+    android:layout_marginStart="@dimen/main_activity_indicator_margin_horizontal"
+    android:text="@string/low_indicator"
     android:textColor="@color/colorPrimaryDark"
     app:layout_constraintTop_toBottomOf="@+id/center_section_top_border"
     app:layout_constraintStart_toStartOf="parent"/>
@@ -105,7 +105,7 @@
     android:id="@+id/low_value"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textSize="24sp"
+    android:textSize="@dimen/main_activity_low_high_value_text_size"
     android:gravity="center"
     tools:text="$860"
     android:textColor="@color/colorPrimaryDark"
@@ -116,11 +116,11 @@
     android:id="@+id/high_indicator"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:textSize="40sp"
+    android:textSize="@dimen/main_activity_indicator_text_size"
     android:textColor="@color/white"
     android:gravity="center"
-    android:layout_marginEnd="15dp"
-    android:text="H"
+    android:layout_marginEnd="@dimen/main_activity_indicator_margin_horizontal"
+    android:text="@string/high_indicator"
     app:layout_constraintTop_toBottomOf="@+id/center_section_top_border"
     app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -128,7 +128,7 @@
     android:id="@+id/high_value"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textSize="24sp"
+    android:textSize="@dimen/main_activity_low_high_value_text_size"
     android:textColor="@color/white"
     android:gravity="center"
     tools:text="$870"
@@ -149,49 +149,49 @@
     android:id="@+id/volume_value"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:textSize="28sp"
-    android:layout_margin="10dp"
+    android:textSize="@dimen/main_activity_standalone_value_text_size"
+    android:layout_margin="@dimen/main_activity_standalone_value_margin"
     android:gravity="center"
     tools:text="Volume: 33977.6"
     app:layout_constraintTop_toBottomOf="@+id/center_section_bottom_border"
     app:layout_constraintBottom_toTopOf="@+id/symbol_recyclerview"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintVertical_bias="0.1"/>
+    app:layout_constraintVertical_bias="@dimen/main_activity_volume_vertical_bias"/>
 
   <TextView
     android:id="@+id/ask_value"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:textSize="28sp"
-    android:layout_margin="10dp"
+    android:textSize="@dimen/main_activity_standalone_value_text_size"
+    android:layout_margin="@dimen/main_activity_standalone_value_margin"
     android:gravity="center"
     tools:text="Ask: $6592"
     app:layout_constraintTop_toBottomOf="@+id/center_section_bottom_border"
     app:layout_constraintBottom_toTopOf="@+id/symbol_recyclerview"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintVertical_bias="0.4"/>
+    app:layout_constraintVertical_bias="@dimen/main_activity_ask_vertical_bias"/>
 
   <TextView
     android:id="@+id/bid_value"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:textSize="28sp"
-    android:layout_margin="10dp"
+    android:textSize="@dimen/main_activity_standalone_value_text_size"
+    android:layout_margin="@dimen/main_activity_standalone_value_margin"
     android:gravity="center"
     tools:text="Bid: $6591"
     app:layout_constraintTop_toBottomOf="@+id/center_section_bottom_border"
     app:layout_constraintBottom_toTopOf="@+id/symbol_recyclerview"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintVertical_bias="0.7"/>
+    app:layout_constraintVertical_bias="@dimen/main_activity_bid_vertical_bias"/>
 
   <android.support.v7.widget.RecyclerView
     android:id="@+id/symbol_recyclerview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="@dimen/main_activity_recyclerview_margin"
     android:orientation="horizontal"
     tools:listitem="@layout/currency_symbol_item"
     tools:itemCount="4"
