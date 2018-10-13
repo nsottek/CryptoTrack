@@ -1,6 +1,7 @@
 package com.nathansottek.cryptotrack.network.main
 
 import com.nathansottek.cryptotrack.data.NetworkResult
+import com.nathansottek.cryptotrack.data.main.CurrencyData
 import com.nathansottek.cryptotrack.factory.DataFactory
 import com.nathansottek.cryptotrack.factory.PrimitiveFactory
 import com.nathansottek.cryptotrack.network.NetworkApi
@@ -41,6 +42,7 @@ class CurrencyClientTest {
 
   @Test fun getCurrencyData_returnsError() {
     whenever(networkApi.getCurrencyUpdate(any())).thenReturn(Single.error(UnsupportedOperationException()))
+    whenever(networkMapper.toCurrencyDataError(any())).thenReturn(CurrencyData(NetworkResult.ERROR))
 
     val testObserver = currencyClient.getCurrencyData(DataFactory.randomCurrencyDataType()).test()
 

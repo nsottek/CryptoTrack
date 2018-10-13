@@ -4,6 +4,8 @@ import com.nathansottek.cryptotrack.network.main.CurrencyClient;
 import io.reactivex.Single;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainRepository {
 
@@ -32,5 +34,15 @@ public class MainRepository {
 
   public Single<CurrencyData> getXrpData() {
     return currencyClient.getCurrencyData(CurrencyData.Type.XRP);
+  }
+
+  public Single<List<String>> getSymbols() {
+    ArrayList<String> symbols = new ArrayList<>();
+    symbols.add(CurrencyData.Type.BTC.symbol);
+    symbols.add(CurrencyData.Type.ETH.symbol);
+    symbols.add(CurrencyData.Type.LTC.symbol);
+    symbols.add(CurrencyData.Type.NEO.symbol);
+    symbols.add(CurrencyData.Type.XRP.symbol);
+    return Single.just(symbols);
   }
 }

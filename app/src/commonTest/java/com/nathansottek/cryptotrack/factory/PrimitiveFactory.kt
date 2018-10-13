@@ -9,8 +9,8 @@ object PrimitiveFactory {
    * Generates a random [String] with an optional inclusive lower bound and exclusive upper bound
    * @return A random string
    */
-  fun randomString(): String {
-    return UUID.randomUUID().toString()
+  fun randomString(length: Int = 6): String {
+    return UUID.randomUUID().toString().substring(0, length)
   }
 
   /**
@@ -19,5 +19,13 @@ object PrimitiveFactory {
    */
   fun randomInt(lower: Int = 0, upper: Int = 1000): Int {
     return ThreadLocalRandom.current().nextInt(lower, upper)
+  }
+
+  fun randomNumberString(length: Int = 8): String {
+    var numberString = ""
+    for (i in 0 until length) {
+      numberString += randomInt(0, 10)
+    }
+    return numberString
   }
 }

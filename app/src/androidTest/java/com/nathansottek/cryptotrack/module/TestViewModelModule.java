@@ -7,6 +7,7 @@ import io.reactivex.Single;
 
 import javax.inject.Singleton;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -17,11 +18,8 @@ public class TestViewModelModule {
   @Singleton
   MainViewModel providesMainViewModel() {
     MainViewModel mockViewModel = mock(MainViewModel.class);
-    when(mockViewModel.getBcc()).thenReturn(Single.never());
-    when(mockViewModel.getBtc()).thenReturn(Single.never());
-    when(mockViewModel.getEth()).thenReturn(Single.never());
-    when(mockViewModel.getLtc()).thenReturn(Single.never());
-    when(mockViewModel.getNeo()).thenReturn(Single.never());
+    when(mockViewModel.getSymbols()).thenReturn(Single.never());
+    when(mockViewModel.getData(anyInt())).thenReturn(Single.never());
     return mockViewModel;
   }
 }

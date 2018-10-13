@@ -1,6 +1,5 @@
 package com.nathansottek.cryptotrack.module;
 
-import android.content.Context;
 import com.nathansottek.cryptotrack.network.NetworkApi;
 import com.squareup.moshi.Moshi;
 import dagger.Module;
@@ -33,7 +32,7 @@ public class NetworkModule {
 
   @Provides
   @Singleton
-  NetworkApi providesNetworkApi(Retrofit retrofit, Context context, Moshi moshi) {
+  NetworkApi providesNetworkApi(Retrofit retrofit) {
     return retrofit.create(NetworkApi.class);
   }
 

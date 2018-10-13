@@ -28,7 +28,7 @@ class MainRepositoryTest {
     val testObserver = repository.xrpData.test()
 
     testObserver.assertValue {
-      assertEquals(CurrencyData.Type.BCC, it.currencyType)
+      assertEquals(CurrencyData.Type.XRP, it.currencyType)
       true
     }
   }
@@ -65,6 +65,19 @@ class MainRepositoryTest {
 
     testObserver.assertValue {
       assertEquals(CurrencyData.Type.NEO, it.currencyType)
+      true
+    }
+  }
+
+  @Test fun getSymbols() {
+    val testObserver = repository.symbols.test()
+
+    testObserver.assertValue {
+      assertEquals(CurrencyData.Type.BTC.symbol, it[0])
+      assertEquals(CurrencyData.Type.ETH.symbol, it[1])
+      assertEquals(CurrencyData.Type.LTC.symbol, it[2])
+      assertEquals(CurrencyData.Type.NEO.symbol, it[3])
+      assertEquals(CurrencyData.Type.XRP.symbol, it[4])
       true
     }
   }

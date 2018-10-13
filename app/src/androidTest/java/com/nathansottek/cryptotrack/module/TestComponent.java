@@ -1,6 +1,6 @@
 package com.nathansottek.cryptotrack.module;
 
-import com.nathansottek.cryptotrack.ui.MainActivityTest;
+import com.nathansottek.cryptotrack.ui.main.MainActivityTest;
 import dagger.Component;
 
 import javax.inject.Singleton;
