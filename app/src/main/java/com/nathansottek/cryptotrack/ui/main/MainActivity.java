@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements SymbolAdapterCall
     return layoutManager;
   }
 
-  @NonNull
   private void setAdapter(List<String> symbols) {
     adapter = new SymbolAdapter(this, symbols);
     symbolRecyclerview.setAdapter(adapter);
