@@ -32,11 +32,7 @@ public class SymbolAdapter extends RecyclerView.Adapter {
 
   @Override
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-    ((SymbolViewHolder) viewHolder).bind(symbols.get(getListPosition(i)));
-  }
-
-  private int getListPosition(int adapterPosition) {
-    return adapterPosition % symbols.size();
+    ((SymbolViewHolder) viewHolder).bind(symbols.get(getDataPosition(i)));
   }
 
   @Override
@@ -44,7 +40,11 @@ public class SymbolAdapter extends RecyclerView.Adapter {
     return Integer.MAX_VALUE;
   }
 
-  public int getStartingPosition() {
+  int getDataPosition(int adapterPosition) {
+    return adapterPosition % symbols.size();
+  }
+
+  int getStartingPosition() {
     int pos = Integer.MAX_VALUE / 2;
     while (pos % symbols.size() != 1) {
       pos++;
@@ -52,11 +52,7 @@ public class SymbolAdapter extends RecyclerView.Adapter {
     return pos;
   }
 
-  public void onScrollFinished(int position) {
-    callback.onSymbolSelected(getListPosition(position));
-  }
-
-  public class SymbolViewHolder extends RecyclerView.ViewHolder {
+  class SymbolViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.symbol_value) TextView symbolValue;
 
@@ -66,8 +62,8 @@ public class SymbolAdapter extends RecyclerView.Adapter {
     }
 
     @OnClick(R.id.symbol_value)
-    public void onSymbolClicked() {
-      callback.onSymbolSelected(getListPosition(getAdapterPosition()));
+    void onSymbolClicked() {
+      callback.onSymbolSelected(getAdapterPosition());
     }
 
     void bind(String symbol) {

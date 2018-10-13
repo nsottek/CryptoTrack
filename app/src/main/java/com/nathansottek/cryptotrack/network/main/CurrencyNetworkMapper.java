@@ -1,9 +1,13 @@
 package com.nathansottek.cryptotrack.network.main;
 
+import com.nathansottek.cryptotrack.data.NetworkResult;
 import com.nathansottek.cryptotrack.data.main.CurrencyData;
 import com.nathansottek.cryptotrack.network.NetworkConstants;
+import retrofit2.HttpException;
 
 import javax.inject.Inject;
+
+import static com.nathansottek.cryptotrack.network.NetworkConstants.HTTP_TOO_MANY_REQUESTS_ERROR;
 
 public class CurrencyNetworkMapper {
 
@@ -32,5 +36,16 @@ public class CurrencyNetworkMapper {
   public CurrencyData toCurrencyData(CurrencyData.Type type, CurrencyResponse response) {
     return new CurrencyData(type, response.mid, response.bid, response.ask, response.lastPrice, response.low,
         response.high, response.volume, response.timestamp);
+  }
+
+  public CurrencyData toCurrencyDataError(Throwable throwable) {
+    if (isTooManyRequestsError(throwable)) {
+      return new CurrencyData(NetworkResult.TOO_MANY_REQUESTS);
+    }
+    return new CurrencyData(NetworkResult.ERROR);
+  }
+
+  private boolean isTooManyRequestsError(Throwable throwable) {
+    return throwable instanceof HttpException && ((HttpException) throwable).code() == HTTP_TOO_MANY_REQUESTS_ERROR;
   }
 }

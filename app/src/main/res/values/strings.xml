@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Crypto Track</string>
-  <string name="generic_network_error">Network error occured</string>
+  <string name="too_many_requests_network_error">Too many requests, please wait one minute</string>
+  <string name="generic_network_error">Network error occurred</string>
+  <string name="updated_at">Updated at %s</string>
+  <string name="price_format">$%s</string>
+  <string name="volume">Volume: %s</string>
+  <string name="ask">Ask: $%s</string>
+  <string name="bid">Bid: $%s</string>
 </resources>

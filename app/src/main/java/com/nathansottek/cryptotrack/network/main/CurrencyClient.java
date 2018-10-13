@@ -1,6 +1,5 @@
 package com.nathansottek.cryptotrack.network.main;
 
-import com.nathansottek.cryptotrack.data.NetworkResult;
 import com.nathansottek.cryptotrack.data.main.CurrencyData;
 import com.nathansottek.cryptotrack.network.NetworkApi;
 import io.reactivex.Single;
@@ -21,6 +20,6 @@ public class CurrencyClient {
   public Single<CurrencyData> getCurrencyData(CurrencyData.Type currencyType) {
     return networkApi.getCurrencyUpdate(networkMapper.toRequestString(currencyType))
         .map(currencyResponse -> networkMapper.toCurrencyData(currencyType, currencyResponse))
-        .onErrorReturnItem(new CurrencyData(NetworkResult.ERROR));
+        .onErrorReturn(networkMapper::toCurrencyDataError);
   }
 }

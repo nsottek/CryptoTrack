@@ -35,6 +35,10 @@ import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity implements SymbolAdapterCallback {
 
+  private static final String VOLUME_PATTERN = "#.##";
+  private static final String TIMESTAMP_DELIMITER = "\\.";
+  private static final String UPDATED_AT_DATE_FORMAT = "hh:mm a";
+
   @Inject GenericViewModelFactory<MainViewModel> viewModelFactory;
 
   @BindView(R.id.mid_value) TextView midValueView;
@@ -67,58 +71,120 @@ public class MainActivity extends AppCompatActivity implements SymbolAdapterCall
         .subscribe(this::initRecyclerview));
   }
 
+  private void retrieveData(int position) {
+    addSubscription(viewModel.getData(position)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(this::handleCurrencyData));
+  }
+
   private void initRecyclerview(List<String> symbols) {
+    LinearLayoutManager layoutManager = setLayoutManager();
+    SymbolAdapter adapter = setAdapter(symbols);
+    LinearSnapHelper snapHelper = setSnapHelper();
+    addScrollListener(layoutManager, snapHelper, adapter);
+    performInitialScroll(adapter);
+  }
+
+  @NonNull
+  private LinearLayoutManager setLayoutManager() {
     LinearLayoutManager layoutManager
         = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
     symbolRecyclerview.setLayoutManager(layoutManager);
+    return layoutManager;
+  }
 
+  @NonNull
+  private SymbolAdapter setAdapter(List<String> symbols) {
     SymbolAdapter adapter = new SymbolAdapter(this, symbols);
     symbolRecyclerview.setAdapter(adapter);
+    return adapter;
+  }
 
+  @NonNull
+  private LinearSnapHelper setSnapHelper() {
     LinearSnapHelper snapHelper = new LinearSnapHelper();
     snapHelper.attachToRecyclerView(symbolRecyclerview);
+    return snapHelper;
+  }
 
+  private void performInitialScroll(SymbolAdapter adapter) {
+    symbolRecyclerview.scrollToPosition(adapter.getStartingPosition() - 5);
+    symbolRecyclerview.smoothScrollToPosition(adapter.getStartingPosition());
+  }
+
+  private void addScrollListener(LinearLayoutManager layoutManager, LinearSnapHelper snapHelper, SymbolAdapter adapter) {
     symbolRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
       @Override
       public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
         if (newState == RecyclerView.SCROLL_STATE_IDLE) {
           View snapView = snapHelper.findSnapView(layoutManager);
-          int snapPosition = layoutManager.getPosition(snapView);
-          adapter.onScrollFinished(snapPosition);
+          if (snapView != null) {
+            int snapPosition = layoutManager.getPosition(snapView);
+            int dataPosition = adapter.getDataPosition(snapPosition);
+            retrieveData(dataPosition);
+          }
         }
       }
     });
-
-    symbolRecyclerview.scrollToPosition(adapter.getStartingPosition() - 5);
-    symbolRecyclerview.smoothScrollToPosition(adapter.getStartingPosition());
   }
 
   private void handleCurrencyData(CurrencyData result) {
     if (result.networkResult != NetworkResult.SUCCESS) {
-      Snackbar.make(findViewById(android.R.id.content), R.string.generic_network_error, Snackbar.LENGTH_SHORT);
+      handleDataError(result);
     } else {
       updateViews(result);
     }
   }
 
-  private void updateViews(CurrencyData data) {
-    midValueView.setText(String.format("$%s", data.mid));
-    Date date = new Date(Long.parseLong(data.timestamp.split("\\.")[0]) * 1000);
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-    simpleDateFormat.setTimeZone(TimeZone.getDefault());
-    updatedAtView.setText(String.format("Updated at %s", simpleDateFormat.format(date)));
-    lowValueView.setText(String.format("$%s", data.low));
-    highValueView.setText(String.format("$%s", data.high));
-    DecimalFormat df = new DecimalFormat("#.##");
-    df.setRoundingMode(RoundingMode.HALF_UP);
-    volumeValueView.setText(String.format("Volume: %s", df.format(Double.valueOf(data.volume))));
-    askValueView.setText(String.format("Ask: $%s", data.ask));
-    bidValueView.setText(String.format("Bid: $%s", data.bid));
+  private void handleDataError(CurrencyData errorData) {
+    switch (errorData.networkResult) {
+      case TOO_MANY_REQUESTS:
+        Snackbar.make(findViewById(android.R.id.content), R.string.generic_network_error, Snackbar.LENGTH_SHORT).show();
+        break;
+      case ERROR:
+      default:
+        Snackbar.make(findViewById(android.R.id.content), R.string.generic_network_error, Snackbar.LENGTH_SHORT).show();
+    }
+  }
 
+  private void updateViews(CurrencyData data) {
+    setIndicator(data);
+    setPrices(data);
+    setUpdatedAt(data);
+    setVolume(data);
+  }
+
+  private void setIndicator(CurrencyData data) {
     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) lowHighIndicatorView.getLayoutParams();
-    params.horizontalBias = (Float.parseFloat(data.mid) - Float.parseFloat(data.low)) / (Float.parseFloat(data.high) - Float.parseFloat(data.low));
+    params.horizontalBias = calculateIndicatorBias(data);
     lowHighIndicatorView.setLayoutParams(params);
+  }
+
+  private float calculateIndicatorBias(CurrencyData data) {
+    return (Float.parseFloat(data.mid) - Float.parseFloat(data.low))
+        / (Float.parseFloat(data.high) - Float.parseFloat(data.low));
+  }
+
+  private void setPrices(CurrencyData data) {
+    midValueView.setText(getString(R.string.price_format, data.mid));
+    lowValueView.setText(getString(R.string.price_format, data.low));
+    highValueView.setText(getString(R.string.price_format, data.high));
+    askValueView.setText(getString(R.string.ask, data.ask));
+    bidValueView.setText(getString(R.string.bid, data.bid));
+  }
+
+  private void setUpdatedAt(CurrencyData data) {
+    Date date = new Date(Long.parseLong(data.timestamp.split(TIMESTAMP_DELIMITER)[0]) * 1000);
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(UPDATED_AT_DATE_FORMAT, Locale.getDefault());
+    simpleDateFormat.setTimeZone(TimeZone.getDefault());
+    updatedAtView.setText(getString(R.string.updated_at, simpleDateFormat.format(date)));
+  }
+
+  private void setVolume(CurrencyData data) {
+    DecimalFormat df = new DecimalFormat(VOLUME_PATTERN);
+    df.setRoundingMode(RoundingMode.HALF_UP);
+    volumeValueView.setText(getString(R.string.volume, df.format(Double.valueOf(data.volume))));
   }
 
   private void addSubscription(Disposable disposable) {
@@ -126,15 +192,13 @@ public class MainActivity extends AppCompatActivity implements SymbolAdapterCall
   }
 
   @Override
-  protected void onDestroy() {
-    super.onDestroy();
-    compositeDisposable.dispose();
+  public void onSymbolSelected(int position) {
+    symbolRecyclerview.smoothScrollToPosition(position);
   }
 
   @Override
-  public void onSymbolSelected(int position) {
-    addSubscription(viewModel.getData(position)
-    .observeOn(AndroidSchedulers.mainThread())
-    .subscribe(this::handleCurrencyData));
+  protected void onDestroy() {
+    super.onDestroy();
+    compositeDisposable.dispose();
   }
 }

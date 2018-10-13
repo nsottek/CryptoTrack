@@ -15,4 +15,6 @@ public class NetworkConstants {
   public static String LTC_REQUEST_SYMBOL = "ltcusd";
   public static String NEO_REQUEST_SYMBOL = "neousd";
   public static String XRP_REQUEST_SYMBOL = "xrpusd";
+
+  public static int HTTP_TOO_MANY_REQUESTS_ERROR = 429;
 }
