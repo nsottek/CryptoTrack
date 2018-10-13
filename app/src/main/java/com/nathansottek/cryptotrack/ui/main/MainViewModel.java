@@ -15,11 +15,11 @@ public class MainViewModel extends ViewModel {
   private MainRepository mainRepository;
 
   @Inject
-  public MainViewModel(MainRepository mainRepository) {
+  MainViewModel(MainRepository mainRepository) {
     this.mainRepository = mainRepository;
   }
 
-  public Single<List<String>> getSymbols() {
+  Single<List<String>> getSymbols() {
     ArrayList<String> symbols = new ArrayList<>();
     symbols.add(CurrencyData.Type.BTC.symbol);
     symbols.add(CurrencyData.Type.ETH.symbol);
@@ -29,7 +29,7 @@ public class MainViewModel extends ViewModel {
     return Single.just(symbols);
   }
 
-  public Single<CurrencyData> getData(int position) {
+  Single<CurrencyData> getData(int position) {
     switch (position) {
       case 0:
         return mainRepository.getBtcData();

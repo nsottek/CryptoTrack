@@ -17,6 +17,7 @@ public class SymbolAdapter extends RecyclerView.Adapter {
 
   private SymbolAdapterCallback callback;
   private List<String> symbols;
+  private int selectedPosition;
 
   SymbolAdapter(SymbolAdapterCallback callback, List<String> symbols) {
     this.callback = callback;
@@ -52,6 +53,10 @@ public class SymbolAdapter extends RecyclerView.Adapter {
     return pos;
   }
 
+  void setSelectedPosition(int selectedPosition) {
+    this.selectedPosition = selectedPosition;
+  }
+
   class SymbolViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.symbol_value) TextView symbolValue;
@@ -63,7 +68,8 @@ public class SymbolAdapter extends RecyclerView.Adapter {
 
     @OnClick(R.id.symbol_value)
     void onSymbolClicked() {
-      callback.onSymbolSelected(getAdapterPosition());
+      int position = getAdapterPosition() < selectedPosition ? selectedPosition - 2 : selectedPosition + 2;
+      callback.scrollToPosition(position);
     }
 
     void bind(String symbol) {

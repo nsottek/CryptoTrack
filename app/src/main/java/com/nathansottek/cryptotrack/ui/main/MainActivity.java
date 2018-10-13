@@ -51,8 +51,10 @@ public class MainActivity extends AppCompatActivity implements SymbolAdapterCall
   @BindView(R.id.bid_value) TextView bidValueView;
   @BindView(R.id.symbol_recyclerview) RecyclerView symbolRecyclerview;
 
-  MainViewModel viewModel;
-  CompositeDisposable compositeDisposable = new CompositeDisposable();
+  private MainViewModel viewModel;
+  private SymbolAdapter adapter;
+  private CompositeDisposable compositeDisposable = new CompositeDisposable();
+  private Disposable lastDataDisposable;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,17 +74,21 @@ public class MainActivity extends AppCompatActivity implements SymbolAdapterCall
   }
 
   private void retrieveData(int position) {
-    addSubscription(viewModel.getData(position)
+    if (lastDataDisposable != null) {
+      lastDataDisposable.dispose();
+    }
+    lastDataDisposable = viewModel.getData(position)
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(this::handleCurrencyData));
+        .subscribe(this::handleCurrencyData);
+    addSubscription(lastDataDisposable);
   }
 
   private void initRecyclerview(List<String> symbols) {
     LinearLayoutManager layoutManager = setLayoutManager();
-    SymbolAdapter adapter = setAdapter(symbols);
+    setAdapter(symbols);
     LinearSnapHelper snapHelper = setSnapHelper();
-    addScrollListener(layoutManager, snapHelper, adapter);
-    performInitialScroll(adapter);
+    addScrollListener(layoutManager, snapHelper);
+    performInitialScroll();
   }
 
   @NonNull
@@ -94,10 +100,9 @@ public class MainActivity extends AppCompatActivity implements SymbolAdapterCall
   }
 
   @NonNull
-  private SymbolAdapter setAdapter(List<String> symbols) {
-    SymbolAdapter adapter = new SymbolAdapter(this, symbols);
+  private void setAdapter(List<String> symbols) {
+    adapter = new SymbolAdapter(this, symbols);
     symbolRecyclerview.setAdapter(adapter);
-    return adapter;
   }
 
   @NonNull
@@ -107,12 +112,13 @@ public class MainActivity extends AppCompatActivity implements SymbolAdapterCall
     return snapHelper;
   }
 
-  private void performInitialScroll(SymbolAdapter adapter) {
+  private void performInitialScroll() {
     symbolRecyclerview.scrollToPosition(adapter.getStartingPosition() - 5);
     symbolRecyclerview.smoothScrollToPosition(adapter.getStartingPosition());
+    adapter.setSelectedPosition(adapter.getStartingPosition());
   }
 
-  private void addScrollListener(LinearLayoutManager layoutManager, LinearSnapHelper snapHelper, SymbolAdapter adapter) {
+  private void addScrollListener(LinearLayoutManager layoutManager, LinearSnapHelper snapHelper) {
     symbolRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
       @Override
       public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -121,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements SymbolAdapterCall
           View snapView = snapHelper.findSnapView(layoutManager);
           if (snapView != null) {
             int snapPosition = layoutManager.getPosition(snapView);
+            adapter.setSelectedPosition(snapPosition);
             int dataPosition = adapter.getDataPosition(snapPosition);
             retrieveData(dataPosition);
           }
@@ -140,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements SymbolAdapterCall
   private void handleDataError(CurrencyData errorData) {
     switch (errorData.networkResult) {
       case TOO_MANY_REQUESTS:
-        Snackbar.make(findViewById(android.R.id.content), R.string.generic_network_error, Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(android.R.id.content), R.string.too_many_requests_network_error, Snackbar.LENGTH_SHORT).show();
         break;
       case ERROR:
       default:
@@ -192,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements SymbolAdapterCall
   }
 
   @Override
-  public void onSymbolSelected(int position) {
+  public void scrollToPosition(int position) {
     symbolRecyclerview.smoothScrollToPosition(position);
   }
 
